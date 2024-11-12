@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+  <context id="context1" targetRuntime="MyBatis3">
+  
+  	<property name="javaFileEncoding" value="UTF-8"/>
+  
+    <!-- 생성한 Mapper파일들을 명시 
+	<plugin type="org.mybatis.generator.plugins.MapperConfigPlugin">
+      <property name="fileName" value="SqlMapConfig"/>
+      <property name="targetPackage" value="mapper"/>
+   	  <property name="targetProject" value="hrmsstart"/>
+    </plugin>
+    -->
+    <!-- MySQL의 start와 limit을 사용하게 해줌 -->
+    <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin"/>
+    <!-- 생성한 sql파일들을 명시 -->
+    <!-- generator 1.4.0 버전, SqlMapConfigPlugin이 삭제 --> 
+    <!-- <plugin type="org.mybatis.generator.plugins.SqlMapConfigPlugin">
+        <property name="fileName" value="SqlMapConfig"/>
+        <property name="targetProject" value="demo"/>
+    </plugin>
+     -->
+    
+    <!-- Model파일에 toString()을 추가해줌 -->
+    <plugin type="org.mybatis.generator.plugins.ToStringPlugin"/>
+    
+    <!-- 기본적으로 Model생성시 생성되는 example파일의 이름을 지정 -->
+    <plugin type="org.mybatis.generator.plugins.RenameExampleClassPlugin">
+        <property name="searchString" value="Department$"/>
+        <property name="replaceString" value="Condition"/>
+    </plugin>
+    
+    <commentGenerator>
+        <property name="suppressAllComments" value="false"/>
+        <property name="suppressDate" value="true"/>
+    </commentGenerator>
+    
+    <jdbcConnection connectionURL="jdbc:mysql://localhost:3306/hrms?useUnicode=true&amp;characterEncoding=UTF-8&amp;autoReconnect=true&amp;autoReconnectForPools=true&amp;serverTimezone=Asia/Seoul" 
+    				driverClass="com.mysql.cj.jdbc.Driver"
+    				userId="ssafy"
+    				password="ssafy">
+    				<property name="nullCatalogMeansCurrent" value="true" />
+    </jdbcConnection>
+            
+	<javaTypeResolver>
+    	<property name="forceBigDecimals" value="false"/>
+    </javaTypeResolver>
+
+    <javaModelGenerator targetProject="hrmsstart" targetPackage="com.honey.edu.department.model">
+    	<!-- 스키마별로 다른 패키지에 두기 위해서 설정한다. 파일들이 저장되는 패키지명이 schema명.targetPackage속성값 으로 설정 -->
+    	<property name="enableSubPackages" value="true"/>
+    	<!-- character 필드들에 대해서 trim을 실행할지 여부를 설정한다. 데이터베이스에서 varchar대신에 char을 사용한다면 유용할 수 있다 -->
+        <property name="trimStrings" value="true"/>
+    </javaModelGenerator>
+
+    <!-- xml -->
+	<sqlMapGenerator targetProject="hrmsstart" targetPackage="mapper">
+		<!-- 스키마별로 다른 패키지에 두기 위해서 설정한다. 파일들이 저장되는 패키지명이 schema명.targetPackage속성값 으로 설정 -->
+		<property name="enableSubPackages" value="true"/>
+	</sqlMapGenerator>
+	    				
+	 <!-- javaClientGenerator type
+	       ANNOTATEDMAPPER : sql xml파일이 생성되지 않고 SqlBuilder를 사용해서 문자열로 처리한 SqlProvider클래스와 SqlProvider클래스를 어노테이션 사용해서 연결한 mapper 인터페이스를 생성한다.(mybatis 3.0.4 이상)
+	       MIXEDMAPPER : ANNOTATEDMAPPER 방식과는 다르게 SqlProvider를 생성하지 않는다.
+	                                    그래서 sql xml파일도 제대로 생성한다. mapper 인터페이스는 어노테이션과 xml 방식을 혼합해서 생성된다. 모든 dynamic sql은 xml방식으로 생성되고 그 나머지는 어노테이션 방식으로 생성된다.
+	       XMLMAPPER : sql xml파일을 생성하고 그에 기반해서 mapper 인터페이스를 생성한다.
+	  -->
+    <javaClientGenerator targetProject="hrmsstart" targetPackage="com.honey.edu.department.model.mapper" type="XMLMAPPER">
+    	<!-- 스키마별로 다른 패키지에 두기 위해서 설정한다. 파일들이 저장되는 패키지명이 schema명.targetPackage속성값 으로 설정 -->
+    	<property name="enableSubPackages" value="true"/>
+    </javaClientGenerator>
+       <!-- enableCountByExample="false" 
+           enableUpdateByExample="false"
+           enableDeleteByExample="false" 
+           enableSelectByExample="false"
+           selectByExampleQueryId="false" 
+           enableDeleteByPrimaryKey="false"
+           enableInsert="false" 
+           enableUpdateByPrimaryKey="false"-->
+    <table schema="hrms" tableName="departments" domainObjectName="Department"
+       
+           >
+    	<property name="ignoreQualifiersAtRuntime" value="true"/>
+     <!--   <generatedKey column="BRD_NO" sqlStatement="MySql" identity="true" type="post"/>-->
+      
+    </table>
+	
+  </context>
+</generatorConfiguration>
